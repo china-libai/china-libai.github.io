@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap引用本地资源</title>
+    <meta charset="utf-8">
+    <!-- 包含头部信息用于适应不同设备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- 引入 bootstrap 这里使用min版，就是去掉空格和换行的精简版 -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container">
+		<h1>HelloWorld</h1>
+		<p>需要引入的有三个 jquery.js、bootstrap.min.js 和 bootstrap.min.css </p>
+		<p>
+		<h2>这里推荐使用百度的静态资源库(http://cdn.code.baidu.com/)上的Bootstrap资源。</h2>
+		百度的静态资源库的 CDN 服务，访问速度更快、加速效果更明显、没有速度和带宽限制、永久免费,引入代码如下：<br/>
+ 新 Bootstrap 核心 CSS 文件 <br/>
+http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css<br/>
+可选的Bootstrap主题文件（一般不使用）<br/>
+http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap-theme.min.css<br/>
+jQuery文件。务必在bootstrap.min.js 之前引入<br/> 
+http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js<br/>
+最新的 Bootstrap 核心 JavaScript 文件<br/> 
+http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js</p>
+
+      <h2>图像</h2>
+      <p>创建项应式图片(将扩展到父元素)。 另外：图片以椭圆型展示：</p>            
+      <img src="http://www.runoob.com/try/demo_source/cinqueterre.jpg" class="img-responsive img-circle" alt="Cinque Terre" width="304" height="236"> 
+      
+      <h2>图标</h2>
+      <p>云图标: <span class="glyphicon glyphicon-cloud"></span></p>      
+      <p>信件图标: <span class="glyphicon glyphicon-envelope"></span></p>            
+      <p>搜索图标: <span class="glyphicon glyphicon-search"></span></p>
+      <p>打印图标: <span class="glyphicon glyphicon-print"></span></p>      
+      <p>下载图标：<span class="glyphicon glyphicon-download"></span></p>      
+    </div>
+
+  </body>
+
+</html>
