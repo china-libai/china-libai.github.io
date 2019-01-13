@@ -52,30 +52,24 @@
     
     <script type="text/javascript">
 		    $(function() {// 初始化内容
-		    	$.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "http://47.74.183.195:8088/message/shopInfoList" ,
-            success: function (result) {
-                if(result.status == 0){
-                		$("#tableData tr:not(:first)").remove(); //清空table,除了第一行
-                    for(var i in result.data){//遍历json数组
-                        var obj = result.data[i];
-                        var rowTem = '<tr>'
-                            + '<td>'+ obj.id+'</td>'
-                            + '<td>'+ obj.name+'</td>'
-                            + '<td>'+ obj.mcc+'</td>'
-                            + '</tr>';
-                        $("#tableData").append(rowTem);
-                    }
-                }else{
-                    alert(result.msg);
+	        fetch('http://47.74.183.195:8088/message/shopInfoList')
+				  .then(response => response.json())
+				  .then(result => {
+				    if(result.status == 0){
+            		$("#tableData tr:not(:first)").remove(); //清空table,除了第一行
+                for(var i in result.data){//遍历json数组
+                    var obj = result.data[i];
+                    var rowTem = '<tr>'
+                        + '<td>'+ obj.id+'</td>'
+                        + '<td>'+ obj.name+'</td>'
+                        + '<td>'+ obj.mcc+'</td>'
+                        + '</tr>';
+                    $("#tableData").append(rowTem);
                 }
-            },
-            error : function() {
-                alert("网络异常！");
+            }else{
+                alert(result.msg);
             }
-        });
+				  });
 		    });  
 		</script>
   </body>
