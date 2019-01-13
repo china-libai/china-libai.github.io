@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>不用帆，全靠浪有限公司</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="./static/image/sys/icon.png" type="image/x-icon" />
+
+    <!-- 包含头部信息用于适应不同设备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 包含 bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    
+  </head>
+
+  <body>
+  	<div class="container">
+	  	<div class="row" style="position:relative;top:15px">
+	  		<div class="col-sm-1 col-md-1">
+				</div>
+	  		<div class="col-sm-10 col-md-10">
+	  			<span style="font-size:25px">商户信息</span>
+	  			<button  style="float:right" type="button" class="btn btn-primary">添加商户</button>
+	  			<hr>
+	  		</div>
+	  	</div>
+			<div class="row" >
+				<div class="col-sm-1 col-md-1">
+				</div>
+		    <div class="col-sm-10 col-md-10">
+		        <table id="tableData" class="table table-striped">
+							
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>商户名称</th>
+								<th>商户mcc</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+		    </div>
+			</div>
+		</div>
+    <!-- JavaScript 放置在文档最后面可以使页面加载速度更快 -->
+    <!-- 可选: 包含 jQuery 库 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
+    <script src="https://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+		    $(function() {// 初始化内容
+		    	$.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "http://47.74.183.195:8088/message/shopInfoList" ,
+            success: function (result) {
+                if(result.status == 0){
+                		$("#tableData tr:not(:first)").remove(); //清空table,除了第一行
+                    for(var i in result.data){//遍历json数组
+                        var obj = result.data[i];
+                        var rowTem = '<tr>'
+                            + '<td>'+ obj.id+'</td>'
+                            + '<td>'+ obj.name+'</td>'
+                            + '<td>'+ obj.mcc+'</td>'
+                            + '</tr>';
+                        $("#tableData").append(rowTem);
+                    }
+                }else{
+                    alert(result.msg);
+                }
+            },
+            error : function() {
+                alert("网络异常！");
+            }
+        });
+		    });  
+		</script>
+  </body>
+
+</html>
