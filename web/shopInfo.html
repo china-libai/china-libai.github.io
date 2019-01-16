@@ -3,7 +3,7 @@
   <head>
     <title>不用帆，全靠浪有限公司</title>
     <meta charset="utf-8">
-    <link rel="icon" href="./static/image/sys/icon.png" type="image/x-icon" />
+    <link rel="icon" href="../static/image/sys/icon.png" type="image/x-icon" />
 
     <!-- 包含头部信息用于适应不同设备 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,6 +53,7 @@
 								<th>ID</th>
 								<th>商户名称</th>
 								<th>商户mcc</th>
+								<th>查询积分</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -94,6 +95,25 @@
 		        </div><!-- /.modal-content -->
 		    </div><!-- /.modal -->
 		</div>
+		
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModalView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" >
+		        <div class="modal-content" >
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">查询积分</h4>
+		            </div>
+		            
+		            	<iframe id="queryMccIframe" name="myiframe" src="http://mcc.3798.com/?c=5812" frameborder="0" width="100%" height="600px" scrolling="yes"></iframe>
+		            
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		
     <!-- JavaScript 放置在文档最后面可以使页面加载速度更快 -->
     <!-- 可选: 包含 jQuery 库 -->
     <script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -126,6 +146,7 @@
                             + '<td>'+ obj.id+'</td>'
                             + '<td>'+ obj.name+'</td>'
                             + '<td>'+ obj.mcc+'</td>'
+                            + '<td><a href="javascript:queryMccView('+ obj.mcc+');"><span class="glyphicon glyphicon-search"></span></a></td>'
                             + '</tr>';
                         $("#tableData").append(rowTem);
                     }
@@ -178,6 +199,14 @@
             }
 	        });
 		    	$('#myModal').modal('hide')
+		    }
+		    
+		    /**
+		     * 查询积分
+		    **/
+		    function queryMccView(mcc){
+		    	$("#queryMccIframe").attr("src","http://mcc.3798.com/?c="+mcc);
+		    	$("#myModalView").modal('show');
 		    }
 		    
 		    /**
