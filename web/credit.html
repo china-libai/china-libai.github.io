@@ -24,26 +24,25 @@
 
   <body>
   	<div class="container">
-	  	<div class="row" style="position:relative;top:15px">
+	  	<div class="row" style="position:relative;">
 	  		<div class="col-sm-1 col-md-1">
 	  		</div>
 	  		<div class="col-sm-10 col-md-10">
-  				<span style="font-size:25px">creditCard信息</span>
-	  			<hr>
+  				<br>
+					<ul id="tab_ul" class="nav nav-tabs">
+						<li class="active" id="tab_1"><a href="javascript:changeTab(1);">广发犀利</a></li>
+						<li id="tab_2"><a href="javascript:changeTab(2);">广发DIY</a></li>
+						<li id="tab_3"><a href="javascript:changeTab(3);">平安旅游</a></li>
+					</ul>
 	  		</div>
 	  		<div class="col-sm-1 col-md-1">
 	  		</div>
 	  	</div>
 			<div class="row" >
 		    <div class="col-sm-12 col-md-12">
+		    	<br>
 		    	<!-- 广发犀利卡 -->
-		      <img src='http://i2.bvimg.com/674929/5f1a9f0ef7903331.png' class="img-responsive center-block">
-		      <hr>
-		      <!-- 广发DIY卡 -->
-		      <img src='http://i2.bvimg.com/674929/44cdb6caad80e4a8.jpg' class="img-responsive center-block">
-		      <hr>
-		      <!-- 平安旅游白 -->
-		      <img src='http://i1.bvimg.com/674929/1bbc0d708883c60a.png' class="img-responsive center-block">
+		      <img id="imageIMG" src='http://i2.bvimg.com/674929/5f1a9f0ef7903331.png' class="img-responsive center-block">
 		      <hr>
 		    </div>
 			</div>
@@ -51,4 +50,34 @@
 		
   </body>
 
+    
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+<script>
+	/**
+	 * 切换tab
+	**/
+	function changeTab(obj){
+		var tabObjId="tab_"+obj;
+		var imgSrc="http://i2.bvimg.com/674929/5f1a9f0ef7903331.png";
+		switch(obj)
+		{
+		case 1:
+		  imgSrc="http://i2.bvimg.com/674929/5f1a9f0ef7903331.png";
+		  break;
+		case 2:
+		  imgSrc="http://i2.bvimg.com/674929/44cdb6caad80e4a8.jpg";
+		  break;
+	  case 3:
+		  imgSrc="http://i1.bvimg.com/674929/1bbc0d708883c60a.png";
+		  break;
+		default:
+		  imgSrc="";
+		}
+		$("#tab_ul li").removeClass("active");
+		$("#imageIMG").attr("src",imgSrc);
+		$("#"+tabObjId).addClass("active");
+
+	}
+</script>
 </html>
