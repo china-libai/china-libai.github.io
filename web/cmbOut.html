@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>招商零星无积分商户</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="../static/image/sys/icon.png" type="image/x-icon" />
+
+	<!-- 包含头部信息用于适应不同设备 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 包含 bootstrap 样式表 -->
+	<link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/common.css">
+
+	<script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?919181fbec46f269e8fd5d17b6312bc2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+	</script>
+
+</head>
+
+<body>
+<div class="container">
+	<div class="row" style="position:relative;top:15px">
+		<div class="col-sm-1 col-md-1">
+		</div>
+		<div class="col-sm-10 col-md-10">
+
+			<form class="form-inline" action="javascript:void(0);" role="form">
+				<span style="font-size:25px">招商零星无积分商户</span>
+				<span style="float:right" >
+	  					<input type="text" id="keys" class="form-control" placeholder="请输入商户名或商户编码"/>
+		  				<button id="queryButton" type="button" class="btn btn-primary" onclick="getList();">查询</button>
+		  			</span>
+			</form>
+			<hr>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="col-sm-1 col-md-1">
+		</div>
+		<div class="col-sm-10 col-md-10">
+			<table id="tableData" class="table table-striped">
+
+				<thead>
+				<tr>
+					<th>序号</th>
+					<th>ID</th>
+					<th>商户编码</th>
+					<th>商户名称</th>
+				</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+			<hr>
+			<span style="float:right;" >
+				共<span id="total"></span>条记录，本页最大显示100条记录！<br>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- JavaScript 放置在文档最后面可以使页面加载速度更快 -->
+<!-- 可选: 包含 jQuery 库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
+<script src="https://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<!-- 弹窗提示插件 -->
+<script src="https://cdn.bootcss.com/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+<script src="../static/js/common.js"></script>
+
+<script type="text/javascript">
+    $(function() {// 初始化内容
+        getList();
+    });
+
+    /**
+     * 获取列表
+     **/
+    function getList() {
+        var keys = $("#keys").val();
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: sysconfig.url + "/message/cmbOutList?shopName=" + keys,
+            success: function (result) {
+                if (result.status == 0) {
+                    $("#total").html(result.total);
+                    $("#tableData tr:not(:first)").remove(); //清空table,除了第一行
+                    for (var i in result.data) {//遍历json数组
+                        var obj = result.data[i];
+                        var rowTem = '<tr>'
+                            + '<td>' + (++i) + '</td>'
+                            + '<td>' + obj.id + '</td>'
+                            + '<td>' + obj.shopCode + '</td>'
+                            + '<td>' + obj.shopName + '</td>'
+                            + '</tr>';
+                        $("#tableData").append(rowTem);
+                    }
+                } else {
+                    showMsg(result.msg, "danger");
+                }
+            },
+            error: function () {
+                showMsg("网络异常！", "danger");
+            }
+        });
+    }
+
+    /**
+     * 监听键盘回车键
+     **/
+    document.onkeydown = function (e) {
+        if (e.keyCode == 13) {
+            $("#queryButton").focus();
+            getList();
+        }
+    }
+
+    /**
+     * 输入框获得焦点后清空
+     **/
+    $("#keys").focus(function () {
+        $("#keys").val("");
+    });
+
+</script>
+
+<!-- 返回首页，返回顶部按钮 -->
+<div class="common-right-button" >
+	<a href="../index.html">
+		<span class="glyphicon glyphicon-home"></span>
+	</a>
+	<br>
+	<br>
+	<a href="javascript:scrollTo(0,0);">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</a>
+</div>
+
+</body>
+
+</html>

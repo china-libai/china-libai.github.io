@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>不用帆，全靠浪有限公司</title>
+    <title>商户信息</title>
     <meta charset="utf-8">
     <link rel="icon" href="../static/image/sys/icon.png" type="image/x-icon" />
 
@@ -127,81 +127,81 @@
     <script type="text/javascript">
 		    $(function() {// 初始化内容
 		    	getShopInfoList();
-		    });  
-		    
-		    /**
-		     * 获取列表
-		    **/
-		    function getShopInfoList(){
-		    	var keys=$("#keys").val();
-		    	$.ajax({
-            type: "GET",
-            dataType: "json",
-            url: sysconfig.url+"/message/shopInfoList?name="+keys ,
-            success: function (result) {
-                if(result.status == 0){
-                		$("#tableData tr:not(:first)").remove(); //清空table,除了第一行
-                    for(var i in result.data){//遍历json数组
-                        var obj = result.data[i];
-                        var rowTem = '<tr>'
-                        		+ '<td>'+ (++i)+'</td>'
-                            + '<td>'+ obj.id+'</td>'
-                            + '<td>'+ obj.name+'</td>'
-                            + '<td>'+ obj.mcc+'</td>'
-                            + '<td><a href="javascript:queryMccView('+ obj.mcc+');"><span class="glyphicon glyphicon-search"></span></a></td>'
-                            + '</tr>';
-                        $("#tableData").append(rowTem);
+		    });
+
+            /**
+             * 获取列表
+             **/
+            function getShopInfoList() {
+                var keys = $("#keys").val();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: sysconfig.url + "/message/shopInfoList?name=" + keys,
+                    success: function (result) {
+                        if (result.status == 0) {
+                            $("#tableData tr:not(:first)").remove(); //清空table,除了第一行
+                            for (var i in result.data) {//遍历json数组
+                                var obj = result.data[i];
+                                var rowTem = '<tr>'
+                                    + '<td>' + (++i) + '</td>'
+                                    + '<td>' + obj.id + '</td>'
+                                    + '<td>' + obj.name + '</td>'
+                                    + '<td>' + obj.mcc + '</td>'
+                                    + '<td><a href="javascript:queryMccView(' + obj.mcc + ');"><span class="glyphicon glyphicon-search"></span></a></td>'
+                                    + '</tr>';
+                                $("#tableData").append(rowTem);
+                            }
+                        } else {
+                            showMsg(result.msg, "danger");
+                        }
+                    },
+                    error: function () {
+                        showMsg("网络异常！", "danger");
                     }
-                }else{
-                    showMsg(result.msg,"danger");
-                }
-            },
-            error : function() {
-                showMsg("网络异常！","danger");
+                });
             }
-	        });
-		    }
-		    
-		    /**
-		     * 提交数据
-		    **/
-		    function submitData(){
-		    	var name=$("#name").val();
-		    	var mcc=$("#mcc").val();
-		    	var validateCode=$("#validateCode").val();
-		    	if (name == '' || name == undefined || name == null) {
-	            showMsg("名称不能为空","danger");
-	            return;
-	        }
-	        if (mcc == '' || mcc == undefined || mcc == null) {
-	            showMsg("mcc不能为空","danger");
-	            return;
-	        }
-	        if (validateCode == '' || validateCode == undefined || validateCode == null) {
-	            showMsg("校验码不能为空","danger");
-	            return;
-	        }
-	        
-		    	$.ajax({
-            type: "GET",
-            dataType: "json",
-            url: sysconfig.url+"/message/shopInfoSave" ,
-            data: {"name":name,"mcc":mcc,"validateCode":validateCode},
-            success: function (result) {
-                if(result.status == 0){
-                		showMsg(result.msg);
-                		getShopInfoList();
-                }else{
-                    showMsg(result.msg,"danger");
-                    return ;
+
+            /**
+             * 提交数据
+             **/
+            function submitData() {
+                var name = $("#name").val();
+                var mcc = $("#mcc").val();
+                var validateCode = $("#validateCode").val();
+                if (name == '' || name == undefined || name == null) {
+                    showMsg("名称不能为空", "danger");
+                    return;
                 }
-            },
-            error : function() {
-                showMsg("网络异常！","danger");
+                if (mcc == '' || mcc == undefined || mcc == null) {
+                    showMsg("mcc不能为空", "danger");
+                    return;
+                }
+                if (validateCode == '' || validateCode == undefined || validateCode == null) {
+                    showMsg("校验码不能为空", "danger");
+                    return;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: sysconfig.url + "/message/shopInfoSave",
+                    data: {"name": name, "mcc": mcc, "validateCode": validateCode},
+                    success: function (result) {
+                        if (result.status == 0) {
+                            showMsg(result.msg);
+                            getShopInfoList();
+                        } else {
+                            showMsg(result.msg, "danger");
+                            return;
+                        }
+                    },
+                    error: function () {
+                        showMsg("网络异常！", "danger");
+                    }
+                });
+                $('#myModal').modal('hide')
             }
-	        });
-		    	$('#myModal').modal('hide')
-		    }
 		    
 		    /**
 		     * 查询积分
@@ -210,44 +210,23 @@
 		    	$("#queryMccIframe").attr("src","http://mcc.3798.com/?c="+mcc);
 		    	$("#myModalView").modal('show');
 		    }
-		    
-		    /**
-				 * 右下角显示信息，淡蓝色方块
-				 * @param msg
-				 */
-		    function showMsg(msg, type, offset){
-					var type = type==null?"info":type;
-					var offset = offset==null?{from: 'bottom', amount: 20}:offset;
-					$.bootstrapGrowl(msg, 
-						{
-						  ele: 'body', // which element to append to
-						  type: type, // (null, 'info', 'danger', 'success')，三种显示样式，INFO（天蓝色），danger（淡红色），success（淡绿色）
-						  offset: offset, // 'top', or 'bottom'
-						  align: 'right', // ('left', 'right', or 'center')
-						  width: 'auto', // (integer, or 'auto')
-						  delay: 2000,	//延迟4s，即4s后消失
-						  allow_dismiss: true,
-						  stackup_spacing: 10 // spacing between consecutively stacked growls.
-						}
-					);
-				}
-				
-				/**
-				 * 监听键盘回车键
-				**/
-				document.onkeydown = function(e){
-				    if(e.keyCode == 13){
-				    	$("#queryButton").focus();
-				    	getShopInfoList();
-				    }
-				}
 
-				/**
-				 * 输入框获得焦点后清空
-				**/
-				$("#keys").focus(function(){
-				  $("#keys").val("");
-				});
+            /**
+             * 监听键盘回车键
+             **/
+            document.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                    $("#queryButton").focus();
+                    getShopInfoList();
+                }
+            }
+
+            /**
+             * 输入框获得焦点后清空
+             **/
+            $("#keys").focus(function () {
+                $("#keys").val("");
+            });
 				
 		</script>
 		
