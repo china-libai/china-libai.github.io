@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>不用帆全靠浪</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="不用帆全靠浪">
+	<meta name="Description" content="不用帆全靠浪">
+    <link rel="icon" href="../static/image/sys/icon.png" type="image/x-icon" />
+    <!-- 包含头部信息用于适应不同设备 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 包含 bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?919181fbec46f269e8fd5d17b6312bc2";
+		  var s = document.getElementsByTagName("script")[0];
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+  </head>
+
+  <body>
+  	<div class="container">
+	  	<div class="row" style="position:relative;top:15px">
+	  		<div class="col-sm-1 col-md-1">
+				</div>
+	  		<div class="col-sm-10 col-md-10">
+				<span style="font-size:25px">上传</span>
+	  			<hr>
+	  		</div>
+	  	</div>
+			<div class="row" >
+				<div class="col-sm-1 col-md-1">
+				</div>
+		    <div class="col-sm-10 col-md-10">
+				<form action="javascript:void(0);" method="post" id="form" enctype="multipart/form-data" >
+					<table id="tableData" class="table table-striped">
+						<tbody>
+							<tr>
+								<div class="form-group">
+									<label >选择文件</label>
+									<input type="file" name="inputfile" class="form-control" >
+								</div>
+							</tr>
+							<tr>
+								<label >校验码</label>
+								<input type="text" id="validateCode" class="form-control" placeholder="请输入校验码">
+							</tr>
+							<tr >
+								<br>
+								<div style="text-align:center" >
+									<button id="queryButton" type="button" class="btn btn-primary" onclick="submitData();">生成</button>
+								</div>
+								<br>
+								<div style="display:none;text-align:center"  id="resultDiv">
+									<span id="result">生成</span>
+								</div>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+		    </div>
+			</div>
+		</div>
+
+    <!-- JavaScript 放置在文档最后面可以使页面加载速度更快 -->
+    <!-- 可选: 包含 jQuery 库 -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
+    <script src="https://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- 弹窗提示插件 -->
+    <script src="https://cdn.bootcss.com/bootstrap-growl/1.0.0/jquery.bootstrap-growl.min.js"></script>
+    <script src="../static/js/common.js"></script>
+    
+    <script type="text/javascript">
+		$(function() {// 初始化内容
+			console.log('libai975');
+            $("#form").attr("action",sysconfig.url + "/upload");
+		});
+
+		/**
+		 * 提交数据
+		 **/
+		function submitData() {
+			var validateCode = $("#validateCode").val();
+			if (validateCode == '' || validateCode == undefined || validateCode == null) {
+				showMsg("校验码不能为空", "danger");
+				return;
+			}
+			var url = sysconfig.url + "/upload";
+            var getUrl = sysconfig.url + "/get";
+            var form = new FormData(document.getElementById("form"));
+            $.ajax({
+                url: url,
+                type:"post",
+                data:form,
+                processData:false,
+                contentType:false,
+                success:function(result){
+                    if (result.status == 0) {
+                        showMsg(result.msg);
+                        $("#resultDiv").html(getUrl);
+                        $("#resultDiv").show();
+                    }
+                },
+                error : function() {
+                    showMsg("异常！", "danger");
+                }
+            });
+		}
+
+		/**
+		 * 监听键盘回车键
+		**/
+		document.onkeydown = function(e){
+			if(e.keyCode == 13){
+                submitData();
+			}
+		}
+	</script>
+		
+	<!-- 返回首页，返回顶部按钮 -->
+	<div class="common-right-button" >
+		<a href="../index.html">
+			<span class="glyphicon glyphicon-home"></span>
+		</a>
+		<br>
+		<br>
+		<a href="javascript:scrollTo(0,0);">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</a>
+	</div>
+		
+  </body>
+
+</html>
