@@ -2,7 +2,7 @@
 
 //系统配置
 var sysconfig = {
-	url:'http://47.74.183.195:8088'
+	url:'http://47.75.230.210:8088'
     //url:'http://localhost:8088'
 }
 

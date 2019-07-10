@@ -56,7 +56,10 @@
 								</div>
 								<br>
 								<div style="display:none;text-align:center"  id="resultDiv">
-									<span id="result">生成</span>
+									<span >结果地址</span>
+								</div>
+								<div style="display:none;text-align:center"  id="resultQR">
+									<div >结果二维码</div>
 								</div>
 							</tr>
 						</tbody>
@@ -69,6 +72,8 @@
     <!-- JavaScript 放置在文档最后面可以使页面加载速度更快 -->
     <!-- 可选: 包含 jQuery 库 -->
     <script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<!--jquery二维码插件 -->
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->
     <script src="https://apps.bdimg.com/libs/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <!-- 弹窗提示插件 -->
@@ -104,6 +109,9 @@
                         showMsg(result.msg);
                         $("#resultDiv").html(getUrl);
                         $("#resultDiv").show();
+                        $('#resultQR').html('');
+                        $('#resultQR').qrcode(getUrl);
+                        $("#resultQR").show();
                     }
                 },
                 error : function() {
